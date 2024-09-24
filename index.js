@@ -1,22 +1,23 @@
 var express = require('express');
 var socket = require('socket.io');
 
-//app
+// App
 var app = express();
-var server = app.listen(4000, function(){
-  console.log('Server is running on port 4000');    
+var port = process.env.PORT || 4000; 
+var server = app.listen(port, function(){
+  console.log(`Server is running on port ${port}`);
 });
 
-//archivos estaticos
+// Archivos estáticos
 app.use(express.static('public'));
 
-//socket setup
+// Socket setup
 var io = socket(server);
 
 io.on('connection', function(socket){
-   console.log('made socket connection', socket.id);
+   console.log('Made socket connection', socket.id);
 
-   //handle chat event
+   // Handle chat event
    socket.on('chat', function(data){
     io.sockets.emit('chat', data);
    });
@@ -25,5 +26,4 @@ io.on('connection', function(socket){
    socket.on('typing', function(data){
     socket.broadcast.emit('typing', data);
    });
-   
 });
