@@ -1,5 +1,5 @@
 //make connection
-var socket = io.connect('http://localhost:4000');
+var socket = io.connect('https://chat-1-pewl.onrender.com');
 
 // Query DOM
 var message = document.getElementById('message'),
